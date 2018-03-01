@@ -178,3 +178,65 @@ ggplot(data = diamonds) +
 
 ggplot(data = diamonds, mapping = aes(x= cut, fill = clarity)) +
   geom_bar(alpha = 1/5, position = "identity")
+
+ggplot(data = diamonds, mapping = aes(x=cut, color = clarity)) +
+  geom_bar(fill = NA, position = "identity")
+
+#Position = "fill"
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
+
+#Position = "dodge"
+
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x=cut, fill = clarity), position = "dodge")
+
+# Fix overplotting
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x=displ, y= hwy), position = "jitter")
+
+#Coordinate Systems
+ggplot(data = mpg, mapping = aes(x=class, y = hwy)) +
+  geom_boxplot()
+
+ggplot(data = mpg, mapping = aes(x=class, y = hwy)) +
+  geom_boxplot() +
+  coord_flip()
+
+#coord_quickmap()
+nz <- map_data("nz")
+
+ggplot(data = nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", color = "black")
+
+ggplot(data = nz, aes(long,lat,group = group)) +
+  geom_polygon(fill = "white", color = "black") +
+  coord_quickmap()
+
+#coord_polar()
+
+bar <- ggplot(data = diamonds) +
+  geom_bar(
+    mapping = aes(x=cut, fill=cut),
+    show.legend = FALSE,
+    width = 1
+  ) +
+  theme(aspect.ratio = 1) +
+  labs(x=NULL, y = NULL)
+
+bar + coord_flip()
+bar + coord_polar()
+
+#NEW FULL GGPLOT TEMPLATE
+
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+    mapping = aes(<MAPPINGS>),
+    stat = <STAT>, 
+    position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+  
+  
+  
