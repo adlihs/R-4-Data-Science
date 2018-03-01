@@ -2,7 +2,10 @@
 title: "Data Visualization Examples"
 author: "Edmund Neil Quiros"
 date: "1 de marzo de 2018"
-output: html_document
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
