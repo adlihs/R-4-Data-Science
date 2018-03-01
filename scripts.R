@@ -229,14 +229,14 @@ bar + coord_polar()
 
 #NEW FULL GGPLOT TEMPLATE
 
-ggplot(data = <DATA>) + 
-  <GEOM_FUNCTION>(
-    mapping = aes(<MAPPINGS>),
-    stat = <STAT>, 
-    position = <POSITION>
-  ) +
-  <COORDINATE_FUNCTION> +
-  <FACET_FUNCTION>
+# ggplot(data = <DATA>) + 
+#   <GEOM_FUNCTION>(
+#     mapping = aes(<MAPPINGS>),
+#     stat = <STAT>, 
+#     position = <POSITION>
+#   ) +
+#   <COORDINATE_FUNCTION> +
+#   <FACET_FUNCTION>
   
   
   
