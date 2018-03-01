@@ -201,7 +201,7 @@ ggplot(data = mpg, mapping = aes(x=class, y = hwy)) +
 
 ggplot(data = mpg, mapping = aes(x=class, y = hwy)) +
   geom_boxplot() +
-  coord_flip()
+  coord_flip() 
 
 #coord_quickmap()
 nz <- map_data("nz")
