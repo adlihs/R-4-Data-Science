@@ -82,4 +82,35 @@ filter(flights, hour > 23 | hour <= 6)
 
 
 #Arrange rows with arrange
+arrange(flights, year, month, day)
 
+
+#desc() to re-order by a column in descending order
+
+arrange(flights, desc(arr_delay))
+
+
+#Missing values are always sorted at the end
+
+df <- tibble(x=c(5,2,NA))
+df
+
+arrange(df,x)
+arrange(df, desc(x))
+
+#Exercise
+arrange(flights,desc(arr_delay))
+
+arrange(flights,desc(dep_delay))
+
+arrange(flights,air_time)
+arrange(flights, desc(distance))
+arrange(flights, distance)
+
+
+#Select columns with select()
+select(flights, year, month, day)
+select(flights, year:day)
+select(flights, -(year:day)) 
+rename(flights, tail_num99 = tailnum)
+select(flights, time_hour, air_time, everything())
