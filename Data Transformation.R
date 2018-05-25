@@ -114,3 +114,57 @@ select(flights, year:day)
 select(flights, -(year:day)) 
 rename(flights, tail_num99 = tailnum)
 select(flights, time_hour, air_time, everything())
+
+#Add new variables with mutate()
+
+flights_sml <- select(flights,
+                      year:day,
+                      ends_with("delay"),
+                      distance,
+                      air_time
+  
+)
+mutate(flights_sml,
+       gain = arr_delay - dep_delay,
+       speed = distance / air_time * 60,
+       hours = air_time / 60,
+       gain_per_hour = gain / hours
+       )
+
+#If you only want to keep the new variables, use transmute():
+
+transmute(flights,
+          gain = arr_delay - dep_delay,
+          hours = air_time / 60,
+          gain_per_hour = gain / hours
+  
+)
+
+#5.5.1 Useful CREATION FUNCTIONS
+
+transmute(flights,
+          dep_time,
+          hour = dep_time %/% 100,
+          minute = dep_time %% 100
+  
+)
+
+#offsets
+x <<- 1:10
+lag(x)
+lead(x)
+
+#cumulative and rolling aggregates
+x
+cumsum(x)
+cummean(x)
+
+#Rank
+
+y <- c(1,2,2,NA,3,4)
+min_rank(y)
+min_rank(desc(y))
+row_number(y)
+dense_rank(y)
+percent_rank(y)
+cume_dist(y)
