@@ -280,4 +280,9 @@ not_cancelled %>%
 not_cancelled %>%
   group_by(dest) %>%
   summarise(distance_sd = sd(distance)) %>%
-  arrange()
+  arrange(desc(distance_sd))
+
+# When do the first and last flights leave each day?
+not_cancelled %>%
+  group_by(year,month,day) %>%
+  
