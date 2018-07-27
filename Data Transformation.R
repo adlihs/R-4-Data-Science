@@ -205,3 +205,79 @@ delays <- flights %>%
   filter(count > 20, dest != "HNL")
 
 #5.6.2 MISSING VALUES
+flights %>%
+  group_by(year,month, day) %>%
+  summarise(mean = mean(dep_delay))
+
+
+##na.rm to removes missing values
+flights %>%
+  group_by(year, month, day) %>%
+  summarise(mean = mean(dep_delay, na.rm = TRUE))
+
+#NA values in the column departure represents cancelled flights
+#Lets filter the not cancelled flights
+
+not_cancelled <- flights %>%
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled %>%
+  group_by(year,month,day) %>%
+  summarise(mean = mean(dep_delay))
+
+#5.6.3 COUNTS
+delays <- not_cancelled %>%
+  group_by(tailnum) %>%
+  summarise(
+    delay = mean(arr_delay)
+  )
+
+ggplot(data = delays, mapping = aes(x = delay)) +
+  geom_freqpoly(binwidth = 10)
+
+#Flights vrs average delay
+delays <- not_cancelled %>%
+  group_by(tailnum) %>%
+  summarise(delay = mean(arr_delay), na.rm = TRUE, n = n())
+
+ggplot(data = delays, mapping = aes(x = n, y = delay)) +
+  geom_point(alpha = 1/10)
+
+delays %>%
+  filter(n > 25) %>%
+  ggplot(mapping = aes(x = n, y = delay)) +
+  geom_point(alpha = 1/10)
+
+#Convert to tribble so it prints nicely
+batting <- as_tibble(Lahman::Batting)
+
+batters <- batting %>%
+  group_by(playerID) %>%
+  summarise(
+    ba = sum(H, na.rm = TRUE) / sum(AB, na.rm = TRUE),
+    ab = sum(AB, na.rm = TRUE)
+  )
+
+batters %>%
+  filter(ab > 100) %>%
+  ggplot(mapping = aes(x = ab, y = ba)) +
+  geom_point() +
+  geom_smooth(se = FALSE)
+
+
+batters %>%
+  arrange(desc(ba))
+
+
+#5.6.4 Useful summary functions
+not_cancelled %>%
+  group_by(year,month,day) %>%
+  summarise(
+    avg_delay1 = mean(arr_delay),
+    avg_delay2 = mean(arr_delay[arr_delay > 0])
+  )
+
+not_cancelled %>%
+  group_by(dest) %>%
+  summarise(distance_sd = sd(distance)) %>%
+  arrange()
